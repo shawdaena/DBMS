@@ -1,0 +1,73 @@
+2)
+SELECT employee_name
+FROM works
+WHERE company_name = 'Sonali'
+
+3)
+SELECT employee.employee_name, employee.street, employee.city
+FROM employee
+JOIN works ON employee.employee_name = works.employee_name
+WHERE company_name = 'Agrani'
+
+4)
+SELECT employee.employee_name, employee.street, employee.city
+FROM employee
+JOIN works ON employee.employee_name = works.employee_name
+WHERE company_name = 'Sonali' AND salary*12 > 120000;
+
+7)
+SELECT employee_name
+FROM works
+WHERE company_name != 'Sonali';
+
+8)
+SELECT e1.employee_name
+FROM works e1
+WHERE e1.salary> ALL(
+	SELECT e2.salary
+    FROM works e2
+    WHERE e2.company_name = 'Janata'
+    );
+
+9)
+SELECT e1.employee_name
+FROM Works e1
+WHERE e1.salary > (
+    SELECT AVG(e2.salary)
+    FROM Works e2
+    WHERE e2.company_name = e1.company_name
+);
+
+10)
+SELECT company_name
+FROM works
+GROUP BY company_name 
+ORDER BY COUNT(employee_name) DESC
+LIMIT 1
+
+11)
+SELECT company_name
+FROM works
+WHERE salary = (SELECT MIN(salary) FROM works);
+
+or,
+SELECT company_name
+FROM works
+GROUP BY company_name
+ORDER BY SUM(salary) ASC
+LIMIT 1
+
+13
+UPDATE employee
+SET city = 'Nator'
+WHERE employee_name = 'Arif';
+
+14)
+UPDATE works
+SET salary = salary*1.10
+WHERE company_name = 'Agrani'
+
+17)
+DELETE FROM Works
+WHERE company_name = 'Janata';
+

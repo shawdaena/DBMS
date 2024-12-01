@@ -1,0 +1,105 @@
+a)
+CREATE TABLE person
+(nid int PRIMARY KEY, name varchar(30), address varchar(30));
+
+CREATE TABLE car
+(license varchar(30) PRIMARY KEY, year int, model varchar(30));
+
+CREATE TABLE accident
+(date DATE, driver varchar(30),d_amount int, PRIMARY KEY(date, driver));
+
+CREATE TABLE owns
+(nid int, license varchar(30), PRIMARY KEY(nid, license));
+
+CREATE TABLE log
+(license varchar(30), date DATE, driver varchar(30), PRIMARY KEY(license, date, driver));
+
+INSERT INTO person
+VALUES(123451, 'Arif', 'Rajshahi'),
+	  (123452, 'Sumon', 'Moynamati'),
+      (123453, 'Sagor', 'Sirajgang'),
+      (123454, 'Abdul', 'Rajshahi'),
+      (123455, 'Himesh', 'Dhaka'),
+      (123456, 'Amirul', 'Sylhet'),
+      (123457, 'Sajib', 'Chittagang');
+
+INSERT INTO accident
+VALUES('2015-09-25', 'Komol', 12000),
+	  ('2014-06-20', 'Bahadur', 11000),
+      ('2011-12-20', 'Abdul', 8000),
+      ('2015-09-19', 'Akter', 7000),
+      ('2013-05-15', 'Arif', 20000),
+      ('2014-08-20', 'Arif', 15000)
+
+b)
+SELECT name
+FROM person
+WHERE Address = 'Rajshahi';
+
+c)
+SELECT model
+FROM car
+WHERE year = 2013;
+
+d)
+SELECT driver
+FROM accident
+WHERE d_amount>=10000 AND d_amount<=15000;
+
+alternative
+
+SELECT driver
+FROM accident
+WHERE d_amount BETWEEN 10000 AND 15000;
+
+e)
+SELECT owns.nid
+FROM owns
+JOIN car ON owns.license = car.license
+WHERE car.model = 'Axio';
+
+f)
+SELECT person.name, person.address
+FROM person
+JOIN owns ON person.nid = owns.nid
+JOIN car ON owns.license = car.license
+WHERE car.model = 'Alto';
+
+g)
+SELECT driver
+FROM accident
+WHERE date = '2011-12-20';
+
+h)
+SELECT name
+FROM person
+JOIN owns ON person.nid = owns.nid
+WHERE license = '12-4000'
+
+i)
+SELECT DISTINCT Person.name 
+FROM Person 
+JOIN Owns ON Person.nid = Owns.nid 
+JOIN Log ON Owns.license = Log.license 
+WHERE Log.driver = 'Arif';
+
+j)
+SELECT model
+FROM car
+JOIN log ON car.license = log.license
+WHERE date = '2015-09-19'; 
+
+k)
+SELECT COUNT(*) accident_count
+FROM accident
+WHERE driver = 'Arif';
+
+l)
+SELECT date
+FROM accident
+WHERE driver = 'Arif';
+
+m)
+UPDATE person
+SET address = 'Nator'
+WHERE name = 'Arif'

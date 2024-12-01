@@ -1,0 +1,88 @@
+
+b)
+SELECT employee_name
+FROM `employee`
+WHERE city = 'Rajshahi';
+
+c)
+SELECT employee_name, street
+FROM `employee`
+WHERE city = 'Rajshahi';
+
+d)
+SELECT employee_name
+FROM `works` 
+WHERE company_name IN ('Sonali', 'Agrani', 'janata')
+
+e)
+SELECT employee_name, salary
+FROM `works` 
+WHERE company_name IN('Sonali','Agrani', 'Janata')
+
+f)
+1)SELECT employee_name
+FROM `works` 
+WHERE salary = 12000
+
+2)SELECT employee_name
+FROM `works` 
+WHERE salary >= 12000
+
+3)SELECT employee_name
+FROM `works` 
+WHERE salary < 12000
+g) same as f
+
+
+h)
+SELECT e.employee_name, e.street, e.city
+FROM employee e
+JOIN works w ON e.employee_name = w.employee_name
+WHERE company_name = 'Agrani';
+
+i)
+SELECT e.employee_name, e.street, e.city
+FROM employee e
+JOIN works w ON e.employee_name = w.employee_name
+WHERE salary >= 10000;
+
+j)
+SELECT w.employee_name, w.company_name, w.salary
+FROM works w
+JOIN employee e ON w.employee_name = e.employee_name
+WHERE city = 'Rajshahi';
+
+k)
+SELECT e.employee_name, e.street, e.city, w.company_name 
+FROM works w
+JOIN employee e ON w.employee_name = e.employee_name
+WHERE salary >= 10000;
+
+l)
+SELECT e.employee_name, e.street, e.city
+FROM works w
+JOIN employee e ON e.employee_name = w.employee_name
+WHERE company_name = 'Sonali' and salary >= 12000
+
+m)
+SELECT employee_name
+FROM works
+WHERE company_name != 'Sonali'
+
+n)
+UPDATE employee
+SET city = 'Natore'
+WHERE employee_name = 'Arif'
+
+o)
+UPDATE salary
+SET salary = salary*1.1
+WHERE company_name = 'Agrani';
+
+p)
+DELETE FROM employee
+WHERE employee_name = 'Sagor'
+
+q)
+ALTER TABLE works
+ADD manager varchar(30) DEFAULT 'Not assigned'
