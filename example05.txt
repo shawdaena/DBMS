@@ -1,0 +1,56 @@
+
+
+1)
+SELECT book_copies.No_Of_Copies
+FROM book_copies
+JOIN book ON book.BookId = book_copies.BookId
+JOIN library_branch ON book_copies.BranchId = library_branch.BranchId
+WHERE book.Title = 'DBMS' AND library_branch.BranchName = 'CSE Seminar Library'
+
+
+2)
+SELECT library_branch.BranchName, SUM(book_copies.No_Of_Copies) 
+FROM book
+JOIN book_copies ON book.BookId = book_copies.BookId
+JOIN library_branch ON book_copies.BranchId = library_branch.BranchId
+WHERE book.Title = 'DBMS'
+GROUP BY (library_branch.BranchName)
+
+3)
+
+SELECT b.Name
+FROM borrower b
+LEFT JOIN book_loan bl ON b.CardNo = bl.CardNo
+WHERE bl.CardNo IS NULL;
+
+4)
+SELECT book.Title, borrower.Name,borrower.Address
+FROM book
+JOIN book_loan ON book.BookId = book_loan.BookId
+JOIN borrower ON borrower.CardNo = book_loan.CardNo
+JOIN library_branch ON book_loan.BranchId = library_branch.BranchId
+WHERE library_branch.BranchName = 'CSE Seminar Library' AND book_loan.dueDate = CURDATE()
+
+5)
+
+SELECT library_branch.BranchName, COUNT(book_loan.BookId) AS TotalBook
+FROM book_loan
+JOIN library_branch ON book_loan.BranchId = library_branch.BranchId
+GROUP BY library_branch.BranchName
+
+6)
+
+SELECT br.Name, br.Address, COUNT(bl.BookId) AS TotalBooksCheckedOut
+FROM book_loan bl
+JOIN borrower br ON bl.CardNo = br.CardNo
+GROUP BY br.CardNo, br.Name, br.Address
+HAVING COUNT(bl.BookId) > 2;
+
+7)
+SELECT b.Title, bc.No_Of_Copies
+FROM book_author ba
+JOIN book b ON ba.BookId = b.BookId
+JOIN book_copies bc ON b.BookId = bc.BookId
+JOIN library_branch lb ON bc.BranchId = lb.BranchId
+WHERE ba.AuthorName = 'Ivan BayRoss' AND lb.BranchName = 'RU Central Library';
+
