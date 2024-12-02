@@ -15,6 +15,20 @@ FROM employee
 JOIN works ON employee.employee_name = works.employee_name
 WHERE company_name = 'Sonali' AND salary*12 > 120000;
 
+5)
+SELECT employee.employee_name
+FROM employee
+JOIN works ON employee.employee_name = works.employee_name
+JOIN company ON works.company_name = company.company_name
+WHERE employee.city = company.city
+
+6)
+SELECT e1.employee_name
+FROM employee e1
+JOIN manages m ON e1.employee_name = m.employee_name
+JOIN employee e2 ON m.manager_name = e2.employee_name
+WHERE e1.city = e2.city AND e1.street = e2.street;
+
 7)
 SELECT employee_name
 FROM works
@@ -57,6 +71,17 @@ GROUP BY company_name
 ORDER BY SUM(salary) ASC
 LIMIT 1
 
+
+12)
+SELECT works.company_name
+FROM works
+GROUP BY works.company_name
+HAVING AVG(works.salary)>(
+    SELECT AVG(salary)
+    FROM works
+    WHERE company_name = 'Agrani');
+    
+
 13
 UPDATE employee
 SET city = 'Nator'
@@ -66,6 +91,33 @@ WHERE employee_name = 'Arif';
 UPDATE works
 SET salary = salary*1.10
 WHERE company_name = 'Agrani'
+
+15)
+
+UPDATE works
+SET salary = salary * 1.10
+WHERE employee_name IN (
+    SELECT employee_name
+    FROM Manages
+    WHERE employee_name IN (
+        SELECT employee_name
+        FROM Works
+        WHERE company_name = 'Agrani'
+    )
+);
+
+
+16)
+
+UPDATE works
+SET salary = CASE
+    WHEN salary * 1.10 <= 19000 THEN salary * 1.10
+    ELSE salary * 1.03
+END
+WHERE employee_name IN (
+    SELECT DISTINCT manager_name
+    FROM manages
+);
 
 17)
 DELETE FROM Works
